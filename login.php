@@ -66,10 +66,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <li><a href="LandingPage.php">Home</a></li>
           <li><a href="#browse">Browse</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="contact-us.html">Contact</a></li>
+          <li><a href="contact-us.php">Contact</a></li>
         </ul>
       </nav>
-      <a href="LandingPage.html" class="back-to-home">← Back to Home</a>
+      <a href="LandingPage.php" class="back-to-home">← Back to Home</a>
     </div>
   </header>
 

@@ -48,54 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $check_stmt->close();
     }
 }
-
-// Optional: use $error_msg in your HTML form below if needed
 ?>
-
-
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - ReWear</title>
-    <link rel="stylesheet" href="register.css">
-</head>
-<body>
-    <div class="register-container">
-        <h2>Create Account</h2>
-
-
-        <form class="register-form" action="register.php" method="POST">
-            <div class="input-group">
-                <label for="name">Full Name</label>
-                <input type="text" name="name" id="name" required>
-            </div>
-
-            <div class="input-group">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" required>
-            </div>
-
-            <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" required>
-            </div>
-
-            <div class="input-group">
-                <label for="confirm_password">Confirm Password</label>
-                <input type="password" name="confirm_password" id="confirm_password" required>
-            </div>
-
-            <button type="submit">Register</button>
-        </form>
-
-        <p>Already have an account? <a href="login.php">Login here</a></p>
-    </div>
-</body>
-</html> -->
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -115,10 +68,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <li><a href="LandingPage.php">Home</a></li>
             <li><a href="#browse">Browse</a></li>
             <li><a href="#about">About</a></li>
-            <li><a href="contact-us.html">Contact</a></li>
+            <li><a href="contact-us.php">Contact</a></li>
           </ul>
         </nav>
-        <a href="landing.html" class="back-to-home">← Back to Home</a>
+        <a href="LandingPage.php  " class="back-to-home">← Back to Home</a>
       </div>
     </header>
 
@@ -217,114 +170,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
       </div>
     </div>
-
-    <!-- <script>
-      // Password strength checker
-      function checkPasswordStrength(password) {
-        const strengthElement = document.getElementById('passwordStrength');
-        let strength = 0;
-        let message = '';
-
-        if (password.length >= 8) strength++;
-        if (password.match(/[a-z]/)) strength++;
-        if (password.match(/[A-Z]/)) strength++;
-        if (password.match(/[0-9]/)) strength++;
-        if (password.match(/[^a-zA-Z0-9]/)) strength++;
-
-        switch (strength) {
-          case 0:
-          case 1:
-            message = 'Weak password';
-            strengthElement.className = 'password-strength strength-weak';
-            break;
-          case 2:
-          case 3:
-            message = 'Medium strength';
-            strengthElement.className = 'password-strength strength-medium';
-            break;
-          case 4:
-          case 5:
-            message = 'Strong password';
-            strengthElement.className = 'password-strength strength-strong';
-            break;
-        }
-
-        strengthElement.textContent = password.length > 0 ? message : '';
-      }
-
-      // Password input event listener
-      document.querySelector('input[type="password"]').addEventListener('input', function() {
-        checkPasswordStrength(this.value);
-      });
-
-      // Form submission handler
-      document.querySelector('.register-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(this);
-        const password = this.querySelector('input[type="password"]').value;
-        const confirmPassword = this.querySelectorAll('input[type="password"]')[1].value;
-        
-        // Password confirmation check
-        if (password !== confirmPassword) {
-          alert('Passwords do not match. Please try again.');
-          return;
-        }
-        
-        // Add loading state
-        const submitBtn = this.querySelector('.btn-primary');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Creating Account...';
-        submitBtn.disabled = true;
-        
-        // Simulate registration process
-        setTimeout(() => {
-          alert('Welcome to ReWear! Your account has been created successfully.');
-          submitBtn.textContent = originalText;
-          submitBtn.disabled = false;
-        }, 2000);
-      });
-
-      // Social login handlers
-      document.querySelectorAll('.btn-social').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          const provider = this.textContent.trim();
-          
-          // Add click animation
-          this.style.transform = 'scale(0.95)';
-          setTimeout(() => {
-            this.style.transform = '';
-          }, 150);
-          
-          alert(`${provider} registration would be implemented here`);
-        });
-      });
-
-      // Input field focus effects
-      document.querySelectorAll('.input-field, .select-field').forEach(input => {
-        input.addEventListener('focus', function() {
-          this.parentElement.style.transform = 'translateY(-2px)';
-        });
-        
-        input.addEventListener('blur', function() {
-          this.parentElement.style.transform = '';
-        });
-      });
-
-      // Header link handlers
-      document.querySelectorAll('.header a').forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          const linkText = this.textContent.trim();
-          
-          if (linkText === '← Back to Home') {
-            alert('Navigating back to home page...');
-          } else {
-            alert(`Navigating to ${linkText} page...`);
-          }
-        });
-      });
-    </script> -->
   </body>
 </html>

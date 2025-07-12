@@ -447,5 +447,3 @@ $flaggedListings = count(array_filter($_SESSION['listings'], fn($l) => $l['statu
                 <?php endforeach; ?>
             </div>
         </div>
-
-        <!-- Manage Listings Tab -->
