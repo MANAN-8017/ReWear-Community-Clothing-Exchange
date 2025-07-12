@@ -1,6 +1,6 @@
 # ReWear – Community Clothing Exchange
 
-**Problem Statement: ReWear Community Clothing Exchange Platform**
+**Problem Statement: #3 - ReWear Community Clothing Exchange Platform**
 
 ## 📋 Overview
 
