@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel - ReWear</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: #f8f9fa;
+      }
+
+      /* Header */
+      .header {
+        background: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .header-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 70px;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #667eea;
+      }
+
+      .admin-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .admin-user {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .admin-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+      }
+
+      /* Navigation Tabs */
+      .nav-tabs {
+        background: white;
+        border-bottom: 2px solid #eee;
+        padding: 0 20px;
+      }
+
+      .nav-tabs-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        gap: 0;
+      }
+
+      .nav-tab {
+        padding: 15px 30px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #666;
+        transition: all 0.3s ease;
+        border-bottom: 3px solid transparent;
+        position: relative;
+      }
+
+      .nav-tab:hover {
+        color: #667eea;
+        background: rgba(102, 126, 234, 0.05);
+      }
+
+      .nav-tab.active {
+        color: #667eea;
+        border-bottom-color: #667eea;
+        background: rgba(102, 126, 234, 0.1);
+      }
+
+      /* Main Content */
+      .main-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 30px 20px;
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      /* Section Header */
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+
+      .section-title {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .section-stats {
+        display: flex;
+        gap: 20px;
+      }
+
+      .stat-item {
+        background: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        min-width: 120px;
+      }
+
+      .stat-number {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #667eea;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      /* Management Cards */
+      .management-grid {
+        display: grid;
+        gap: 20px;
+      }
+
+      .management-card {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        display: grid;
+        grid-template-columns: 80px 1fr auto;
+        gap: 20px;
+        align-items: center;
+        transition: transform 0.3s ease;
+      }
+
+      .management-card:hover {
+        transform: translateY(-2px);
+      }
+
+      .item-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .item-image {
+        width: 80px;
+        height: 80px;
+        border-radius: 10px;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2rem;
+      }
+
+      .item-details {
+        flex: 1;
+      }
+
+      .item-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: #333;
+      }
+
+      .item-subtitle {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 10px;
+      }
+
+      .item-meta {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .meta-item {
+        font-size: 0.8rem;
+        color: #888;
+        background: #f8f9fa;
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+
+      .item-status {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+
+      .status-pending {
+        background: #fff3cd;
+        color: #856404;
+      }
+
+      .status-approved {
+        background: #d4edda;
+        color: #155724;
+      }
+
+      .status-rejected {
+        background: #f8d7da;
+        color: #721c24;
+      }
+
+      .status-active {
+        background: #d4edda;
+        color: #155724;
+      }
+
+      .status-blocked {
+        background: #f8d7da;
+        color: #721c24;
+      }
+
+      .status-completed {
+        background: #cce7ff;
+        color: #004085;
+      }
+
+      /* Action Buttons */
+      .item-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .action-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        min-width: 100px;
+      }
+
+      .btn-approve {
+        background: #28a745;
+        color: white;
+      }
+
+      .btn-approve:hover {
+        background: #218838;
+      }
+
+      .btn-reject {
+        background: #dc3545;
+        color: white;
+      }
+
+      .btn-reject:hover {
+        background: #c82333;
+      }
+
+      .btn-view {
+        background: #17a2b8;
+        color: white;
+      }
+
+      .btn-view:hover {
+        background: #138496;
+      }
+
+      .btn-edit {
+        background: #ffc107;
+        color: #212529;
+      }
+
+      .btn-edit:hover {
+        background: #e0a800;
+      }
+
+      .btn-delete {
+        background: #dc3545;
+        color: white;
+      }
+
+      .btn-delete:hover {
+        background: #c82333;
+      }
+
+      .btn-block {
+        background: #6c757d;
+        color: white;
+      }
+
+      .btn-block:hover {
+        background: #5a6268;
+      }
+
+      /* Search and Filter */
+      .controls {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+
+      .search-input {
+        flex: 1;
+        min-width: 250px;
+        padding: 12px 15px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        outline: none;
+      }
+
+      .search-input:focus {
+        border-color: #667eea;
+      }
+
+      .filter-select {
+        padding: 12px 15px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        outline: none;
+        background: white;
+        cursor: pointer;
+      }
+
+      .filter-select:focus {
+        border-color: #667eea;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .header-content {
+          flex-direction: column;
+          height: auto;
+          padding: 15px 20px;
+        }
+
+        .admin-title {
+          margin: 10px 0;
+        }
+
+        .nav-tabs-container {
+          flex-direction: column;
+        }
+
+        .nav-tab {
+          text-align: center;
+          padding: 12px 20px;
+        }
+
+        .section-header {
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        .section-stats {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .management-card {
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 15px;
+        }
+
+        .item-actions {
+          flex-direction: row;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        .controls {
+          flex-direction: column;
+        }
+
+        .search-input {
+          min-width: 100%;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .main-content {
+          padding: 20px 15px;
+        }
+
+        .management-card {
+          padding: 15px;
+        }
+
+        .item-avatar,
+        .item-image {
+          width: 60px;
+          height: 60px;
+          font-size: 1.2rem;
+        }
+
+        .action-btn {
+          padding: 6px 12px;
+          font-size: 0.8rem;
+          min-width: 80px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">ReWear</div>
+        <div class="admin-title">Admin Panel</div>
+        <div class="admin-user">
+          <div class="admin-avatar">A</div>
+          <span>Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <div class="nav-tabs-container">
+        <button class="nav-tab active" onclick="showTab('users')">
+          Manage Users
+        </button>
+        <button class="nav-tab" onclick="showTab('orders')">
+          Manage Orders
+        </button>
+        <button class="nav-tab" onclick="showTab('listings')">
+          Manage Listings
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Manage Users Tab -->
+      <div id="users" class="tab-content active">
+        <div class="section-header">
+          <h1 class="section-title">Manage Users</h1>
+          <div class="section-stats">
+            <div class="stat-item">
+              <div class="stat-number">1,247</div>
+              <div class="stat-label">Total Users</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">23</div>
+              <div class="stat-label">New Today</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">12</div>
+              <div class="stat-label">Blocked</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Search users..."
+          />
+          <select class="filter-select">
+            <option value="">All Status</option>
+            <option value="active">Active</option>
+            <option value="blocked">Blocked</option>
+            <option value="new">New</option>
+          </select>
+        </div>
+
+        <div class="management-grid">
+          <div class="management-card">
+            <div class="item-avatar">JD</div>
+            <div class="item-details">
+              <div class="item-title">John Doe</div>
+              <div class="item-subtitle">john.doe@email.com</div>
+              <div class="item-meta">
+                <span class="meta-item">Member since: Jan 2024</span>
+                <span class="meta-item">15 Swaps</span>
+                <span class="meta-item">320 Points</span>
+                <span class="item-status status-active">Active</span>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="action-btn btn-view">View Profile</button>
+              <button class="action-btn btn-block">Block User</button>
+            </div>
+          </div>
+
+          <div class="management-card">
+            <div class="item-avatar">SA</div>
+            <div class="item-details">
+              <div class="item-title">Sarah Anderson</div>
+              <div class="item-subtitle">sarah.anderson@email.com</div>
+              <div class="item-meta">
+                <span class="meta-item">Member since: Mar 2024</span>
+                <span class="meta-item">8 Swaps</span>
+                <span class="meta-item">180 Points</span>
+                <span class="item-status status-active">Active</span>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="action-btn btn-view">View Profile</button>
+              <button class="action-btn btn-block">Block User</button>
+            </div>
+          </div>
+
+          <div class="management-card">
+            <div class="item-avatar">MJ</div>
+            <div class="item-details">
+              <div class="item-title">Mike Johnson</div>
+              <div class="item-subtitle">mike.johnson@email.com</div>
+              <div class="item-meta">
+                <span class="meta-item">Member since: Feb 2024</span>
+                <span class="meta-item">0 Swaps</span>
+                <span class="meta-item">Spam Reports: 3</span>
+                <span class="item-status status-blocked">Blocked</span>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="action-btn btn-view">View Profile</button>
+              <button class="action-btn btn-approve">Unblock</button>
+            </div>
+          </div>
+
+          <div class="management-card">
+            <div class="item-avatar">EW</div>
+            <div class="item-details">
+              <div class="item-title">Emma Wilson</div>
+              <div class="item-subtitle">emma.wilson@email.com</div>
+              <div class="item-meta">
+                <span class="meta-item">Member since: Today</span>
+                <span class="meta-item">0 Swaps</span>
+                <span class="meta-item">0 Points</span>
+                <span class="item-status status-active">Active</span>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="action-btn btn-view">View Profile</button>
+              <button class="action-btn btn-block">Block User</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manage Orders Tab -->
+      <div id="orders" class="tab-content">
+        <div class="section-header">
+          <h1 class="section-title">Manage Orders</h1>
+          <div class="section-stats">
+            <div class="stat-item">
+              <div class="stat-number">456</div>
+              <div class="stat-label">Total Orders</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">12</div>
+              <div class="stat-label">Pending</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">8</div>
+              <div class="stat-label">Disputes</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Search orders..."
+          />
+          <select class="filter-select">
+            <option value="">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+            <option value="disputed">Disputed</option>
+          </select>
+        </div>
+
+        <div class="management-grid">
+          <div class="management-card">
+            <div class="item-image">📦</div>
+            <div class="item-details">
+              <div class="item-title">Order #12345</div>
+              <div class="item-subtitle">John Doe ↔ Sarah Anderson</div>
+              <div class="item-meta">
+                <span class="meta-item">Vintage Dress ↔ Designer Jacket</span>
+                <span class="meta-item">Created: 2 hours ago</span>
+                <span class="item-status status-pending">Pending</span>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="action-btn btn-view">View Details</button>
+              <button class="action-btn btn-approve">Approve</button>
+            </div>
+          </div>
+
+          <div class="management-card">
+            <div class="item-image">✅</div>
+            <div class="item-details">
+              <div class="item-title">Order #12344</div>
+              <div class="item-subtitle">Emma Wilson ↔ Mike Johnson</div>
+              <div class="item-meta">
+                <span class="meta-item">Sneakers ↔ Casual Shirt</span>
+                <span class="meta-item">Completed: 1 day ago</span>
+                <span class="item-status status-completed">Completed</span>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="action-btn btn-view">View Details</button>
+              <button class="action-btn btn-edit">Edit</button>
+            </div>
+          </div>
+
+          <div class="management-card">
+            <div class="item-image">⚠️</div>
+            <div class="item-details">
+              <div class="item-title">Order #12343</div>
+              <div class="item-subtitle">Lisa Brown ↔ Tom Davis</div>
+              <div class="item-meta">
+                <span class="meta-item">Formal Suit ↔ Evening Dress</span>
+                <span class="meta-item">Dispute: Item not as described</span>
+                <span class="item-status status-rejected">Disputed</span>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="action-btn btn-view">View Details</button>
+              <button class="action-btn btn-edit">Resolve</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manage Listings Tab -->
+      <div id="listings" class="tab-content">
+        <div class="section-header">
+          <h1 class="section-title">Manage Listings</h1>
+          <div class="section-stats">
+            <div class="stat-item">
+              <div class="stat-number">2,456</div>
+              <div class="stat-label">Total Listings</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">34</div>
+              <div class="stat-label">Pending Review</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">7</div>
+              <div class="stat-label">Flagged</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Search listings..."
+          />
+          <select class="filter-select">
+            <option value="">All Status</option>
+            <option value="pending">Pending Review</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+            <option value="flagged">Flagged</option>
+          </select>
+        </div>
+
+        <div class="management-grid">
+          <div class="management-card">
+            <div class="item-image">👗</div>
+            <div class="item-details">
+              <div class="item-title">Vintage Summer Dress</div>
+              <div class="item-subtitle">Listed by Sarah Anderson</div>
+              <div class="item-meta">
+                <span class="meta-item">Size: M</span>
+                <span class="meta-item">Condition: Excellent</span>
+                <span class="meta-item">Listed: 3 hours ago</span>
+                <span class="item-status status-pending">Pending Review</span>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="action-btn btn-approve">Approve</button>
+              <button class="action-btn btn-reject">Reject</button>
+            </div>
+          </div>
+
+          <div class="management-card">
+            <div class="item-image">🧥</div>
+            <div class="item-details">
+              <div class="item-title">Designer Leather Jacket</div>
+              <div class="item-subtitle">Listed by John Doe</div>
+              <div class="item-meta">
+                <span class="meta-item">Size: L</span>
+                <span class="meta-item">Condition: Good</span>
+                <span class="meta-item">Listed: 1 day ago</span>
+                <span class="item-status status-approved">Approved</span>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="action-btn btn-view">View Details</button>
+              <button class="action-btn btn-delete">Remove</button>
+            </div>
+          </div>
+
+          <div class="management-card">
+            <div class="item-image">👔</div>
+            <div class="item-details">
+              <div class="item-title">Inappropriate Content Title</div>
+              <div class="item-subtitle">Listed by Spam User</div>
+              <div class="item-meta">
+                <span class="meta-item">Reports: 5</span>
+                <span class="meta-item">Reason: Inappropriate content</span>
+                <span class="meta-item">Listed: 2 days ago</span>
+                <span class="item-status status-rejected">Flagged</span>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="action-btn btn-view">View Details</button>
+              <button class="action-btn btn-delete">Remove</button>
+            </div>
+          </div>
+
+          <div class="management-card">
+            <div class="item-image">👟</div>
+            <div class="item-details">
+              <div class="item-title">White Running Shoes</div>
+              <div class="item-subtitle">Listed by Emma Wilson</div>
+              <div class="item-meta">
+                <span class="meta-item">Size: 8</span>
+                <span class="meta-item">Condition: Like New</span>
+                <span class="meta-item">Listed: 5 hours ago</span>
+                <span class="item-status status-pending">Pending Review</span>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="action-btn btn-approve">Approve</button>
+              <button class="action-btn btn-reject">Reject</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Tab switching functionality
+      function showTab(tabName) {
+        // Hide all tab contents
+        document.querySelectorAll(".tab-content").forEach((content) => {
+          content.classList.remove("active");
+        });
+
+        // Remove active class from all tabs
+        document.querySelectorAll(".nav-tab").forEach((tab) => {
+          tab.classList.remove("active");
+        });
+
+        // Show selected tab content
+        document.getElementById(tabName).classList.add("active");
+
+        // Add active class to clicked tab
+        event.target.classList.add("active");
+      }
+
+      // Action button handlers
+      document.addEventListener("click", function (e) {
+        if (e.target.classList.contains("action-btn")) {
+          const action = e.target.textContent;
+          const card = e.target.closest(".management-card");
+          const title = card.querySelector(".item-title").textContent;
+
+          // Add click animation
+          e.target.style.transform = "scale(0.95)";
+          setTimeout(() => {
+            e.target.style.transform = "";
+          }, 150);
+
+          // Handle different actions
+          switch (action) {
+            case "Approve":
+              if (confirm(`Approve "${title}"?`)) {
+                alert(`"${title}" has been approved.`);
+                // Update status in real implementation
+                const status = card.querySelector(".item-status");
+                status.textContent = "Approved";
+                status.className = "item-status status-approved";
+
+                // Update buttons
+                e.target.textContent = "View Details";
+                e.target.className = "action-btn btn-view";
+                e.target.nextElementSibling.textContent = "Remove";
+                e.target.nextElementSibling.className = "action-btn btn-delete";
+              }
+              break;
+
+            case "Reject":
+              if (confirm(`Reject "${title}"?`)) {
+                alert(`"${title}" has been rejected.`);
+                const status = card.querySelector(".item-status");
+                status.textContent = "Rejected";
+                status.className = "item-status status-rejected";
+
+                // Update buttons
+                e.target.textContent = "View Details";
+                e.target.className = "action-btn btn-view";
+                e.target.nextElementSibling.textContent = "Remove";
+                e.target.nextElementSibling.className = "action-btn btn-delete";
+              }
+              break;
+
+            case "Block User":
+              if (confirm(`Block user "${title}"?`)) {
+                alert(`User "${title}" has been blocked.`);
+                const status = card.querySelector(".item-status");
+                status.textContent = "Blocked";
+                status.className = "item-status status-blocked";
+
+                e.target.textContent = "Unblock";
+                e.target.className = "action-btn btn-approve";
+              }
+              break;
+
+            case "Unblock":
+              if (confirm(`Unblock user "${title}"?`)) {
+                alert(`User "${title}" has been unblocked.`);
+                const status = card.querySelector(".item-status");
+                status.textContent = "Active";
+                status.className = "item-status status-active";
+
+                e.target.textContent = "Block User";
+                e.target.className = "action-btn btn-block";
+              }
+              break;
+
+            case "Remove":
+              if (confirm(`Remove "${title}"? This action cannot be undone.`)) {
+                alert(`"${title}" has been removed.`);
+                card.style.opacity = "0.5";
+                card.style.pointerEvents = "none";
+              }
+              break;
+
+            default:
+              alert(`${action} clicked for "${title}"`);
+          }
+        }
+      });
+
+      // Search functionality
+      document.querySelectorAll(".search-input").forEach((input) => {
+        input.addEventListener("input", function () {
+          const searchTerm = this.value.toLowerCase();
+          const cards =
+            this.closest(".tab-content").querySelectorAll(".management-card");
+
+          cards.forEach((card) => {
+            const title = card
+              .querySelector(".item-title")
+              .textContent.toLowerCase();
+            const subtitle = card
+              .querySelector(".item-subtitle")
+              .textContent.toLowerCase();
+
+            if (title.includes(searchTerm) || subtitle.includes(searchTerm)) {
+              card.style.display = "grid";
+            } else {
+              card.style.display = "none";
+            }
+          });
+        });
+      });
+
+      // Filter functionality
+      document.querySelectorAll(".filter-select").forEach((select) => {
+        select.addEventListener("change", function () {
+          const filterValue = this.value;
+          const cards =
+            this.closest(".tab-content").querySelectorAll(".management-card");
+
+          cards.forEach((card) => {
+            const status = card.querySelector(".item-status");
+
+            if (
+              !filterValue ||
+              status.textContent.toLowerCase().includes(filterValue)
+            ) {
+              card.style.display = "grid";
+            } else {
+              card.style.display = "none";
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

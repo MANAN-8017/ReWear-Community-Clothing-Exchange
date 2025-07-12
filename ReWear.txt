@@ -1,0 +1,92 @@
+CREATE TABLE Users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    profile_image VARCHAR(255),
+    location VARCHAR(100),
+    points INT DEFAULT 0
+);
+
+CREATE TABLE Items (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    item_id INT NOT NULL,
+    title VARCHAR(150) NOT NULL,
+    description TEXT,
+    category VARCHAR(50),
+    type VARCHAR(50),
+    size VARCHAR(20),
+    conditions VARCHAR(50),
+    tags VARCHAR(255),
+    status ENUM('pending', 'approved', 'rejected', 'swapped') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE ItemImages (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    item_id INT NOT NULL,
+    image_url VARCHAR(255) NOT NULL,
+    FOREIGN KEY (item_id) REFERENCES Items(id) ON DELETE CASCADE
+);
+
+CREATE TABLE SwapRequests (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    sender_id INT NOT NULL,
+    receiver_id INT NOT NULL,
+    item_id INT NOT NULL,
+    method ENUM('swap', 'points') NOT NULL,
+    status ENUM('pending', 'accepted', 'rejected', 'cancelled') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (sender_id) REFERENCES Users(id),
+    FOREIGN KEY (receiver_id) REFERENCES Users(id),
+    FOREIGN KEY (item_id) REFERENCES Items(id)
+);
+
+CREATE TABLE SwapHistory (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    item_id INT NOT NULL,
+    sender_id INT NOT NULL,
+    receiver_id INT NOT NULL,
+    method ENUM('swap', 'points') NOT NULL,
+    points_used INT DEFAULT 0,
+    completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (item_id) REFERENCES Items(id),
+    FOREIGN KEY (sender_id) REFERENCES Users(id),
+    FOREIGN KEY (receiver_id) REFERENCES Users(id)
+);
+
+CREATE TABLE Feedback (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    swap_id INT NOT NULL,
+    from_user_id INT NOT NULL,
+    to_user_id INT NOT NULL,
+    rating INT CHECK (rating >= 1 AND rating <= 5),
+    comment TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (swap_id) REFERENCES SwapHistory(id),
+    FOREIGN KEY (from_user_id) REFERENCES Users(id),
+    FOREIGN KEY (to_user_id) REFERENCES Users(id)
+);
+
+CREATE TABLE Admin (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    admin_id INT NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    profile_image VARCHAR(255)
+);
+
+CREATE TABLE UserBans (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    admin_id INT NOT NULL,
+    reason TEXT,
+    ban_type ENUM('temporary', 'permanent') DEFAULT 'temporary',
+    banned_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(id),
+    FOREIGN KEY (admin_id) REFERENCES AdminUsers(id)
+);

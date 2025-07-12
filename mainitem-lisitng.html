@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Women's Dresses - ReWear</title>
+    <link rel="stylesheet" href="mainitem-lisitng">
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <a href="#" class="logo">ReWear</a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#browse">Browse</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="auth-buttons">
+          <a href="#" class="btn btn-outline">Login</a>
+          <a href="#" class="btn btn-primary">Sign Up</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Search Section -->
+    <section class="search-section">
+      <div class="search-container">
+        <div class="search-bar">
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Search for clothing items..."
+          />
+          <span class="search-icon">🔍</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+      <div class="breadcrumb-container">
+        <nav class="breadcrumb-nav">
+          <a href="#">Home</a>
+          <span class="breadcrumb-separator">></span>
+          <a href="#">Women's Fashion</a>
+          <span class="breadcrumb-separator">></span>
+          <span>Dresses</span>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="content-wrapper">
+        <!-- Filters Sidebar -->
+        <aside class="filters-sidebar">
+          <h3 class="filters-title">Filters</h3>
+
+          <div class="filter-section">
+            <span class="filter-label">Points Range</span>
+            <div class="price-range">
+              <input
+                type="number"
+                class="price-input"
+                placeholder="Min"
+                value="20"
+              />
+              <span>-</span>
+              <input
+                type="number"
+                class="price-input"
+                placeholder="Max"
+                value="100"
+              />
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <span class="filter-label">Size</span>
+            <div class="filter-option">
+              <input type="checkbox" id="size-xs" />
+              <label for="size-xs">XS (12)</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="size-s" />
+              <label for="size-s">S (25)</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="size-m" checked />
+              <label for="size-m">M (34)</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="size-l" />
+              <label for="size-l">L (18)</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="size-xl" />
+              <label for="size-xl">XL (8)</label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <span class="filter-label">Brand</span>
+            <div class="filter-option">
+              <input type="checkbox" id="brand-zara" />
+              <label for="brand-zara">Zara (15)</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="brand-hm" />
+              <label for="brand-hm">H&M (12)</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="brand-mango" />
+              <label for="brand-mango">Mango (8)</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="brand-forever21" />
+              <label for="brand-forever21">Forever 21 (6)</label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <span class="filter-label">Condition</span>
+            <div class="filter-option">
+              <input type="checkbox" id="condition-new" />
+              <label for="condition-new">New with Tags (5)</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="condition-excellent" checked />
+              <label for="condition-excellent">Excellent (28)</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="condition-good" />
+              <label for="condition-good">Good (15)</label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <span class="filter-label">Color</span>
+            <div class="filter-option">
+              <input type="checkbox" id="color-black" />
+              <label for="color-black">Black (20)</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="color-blue" />
+              <label for="color-blue">Blue (15)</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="color-red" />
+              <label for="color-red">Red (8)</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="color-floral" />
+              <label for="color-floral">Floral Print (12)</label>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Products Section -->
+        <section class="products-section">
+          <div class="category-header">
+            <h1 class="category-title">Women's Dresses</h1>
+            <p class="category-subtitle">
+              Discover unique pre-loved dresses from trusted sellers
+            </p>
+          </div>
+
+          <div class="results-info">
+            <span class="results-count">Showing 1-24 of 127 results</span>
+            <div class="sort-options">
+              <span class="sort-label">Sort by:</span>
+              <select class="sort-select">
+                <option value="relevance">Relevance</option>
+                <option value="price-low">Points: Low to High</option>
+                <option value="price-high">Points: High to Low</option>
+                <option value="newest">Newest First</option>
+                <option value="rating">Best Rating</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="products-grid">
+            <!-- Product Card 1 -->
+            <div class="product-card">
+              <div class="product-image">
+                👗
+                <div class="product-badge new">New</div>
+                <button class="wishlist-btn">♡</button>
+              </div>
+              <div class="product-info">
+                <h3 class="product-title">Floral Maxi Dress</h3>
+                <p class="product-description">
+                  Beautiful floral print maxi dress, perfect for summer
+                  occasions. Flowing silhouette with comfortable fit.
+                </p>
+                <div class="product-meta">
+                  <span class="product-points">50 Points</span>
+                  <span class="product-condition">Excellent</span>
+                </div>
+                <div class="product-details">
+                  <span class="product-size">Size: M</span>
+                  <span class="product-brand">Zara</span>
+                </div>
+                <div class="seller-info">
+                  <div class="seller-avatar">S</div>
+                  <span class="seller-name">Sarah Johnson</span>
+                  <span class="seller-rating">⭐ 4.9</span>
+                </div>
+                <div class="product-actions">
+                  <button class="btn-exchange">Exchange</button>
+                  <button class="btn-view">View</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Card 2 -->
+            <div class="product-card">
+              <div class="product-image">
+                👗
+                <div class="product-badge featured">Featured</div>
+                <button class="wishlist-btn">♡</button>
+              </div>
+              <div class="product-info">
+                <h3 class="product-title">Elegant Evening Dress</h3>
+                <p class="product-description">
+                  Sophisticated black evening dress with subtle shimmer details.
+                  Perfect for special occasions.
+                </p>
+                <div class="product-meta">
+                  <span class="product-points">75 Points</span>
+                  <span class="product-condition">Excellent</span>
+                </div>
+                <div class="product-details">
+                  <span class="product-size">Size: S</span>
+                  <span class="product-brand">H&M</span>
+                </div>
+                <div class="seller-info">
+                  <div class="seller-avatar">M</div>
+                  <span class="seller-name">Maria Garcia</span>
+                  <span class="seller-rating">⭐ 4.8</span>
+                </div>
+                <div class="product-actions">
+                  <button class="btn-exchange">Exchange</button>
+                  <button class="btn-view">View</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Card 3 -->
+            <div class="product-card">
+              <div class="product-image">
+                👗
+                <button class="wishlist-btn">♡</button>
+              </div>
+              <div class="product-info">
+                <h3 class="product-title">Casual Summer Dress</h3>
+                <p class="product-description">
+                  Light and breezy cotton dress in vibrant coral color. Great
+                  for casual outings and beach days.
+                </p>
+                <div class="product-meta">
+                  <span class="product-points">35 Points</span>
+                  <span class="product-condition">Good</span>
+                </div>
+                <div class="product-details">
+                  <span class="product-size">Size: L</span>
+                  <span class="product-brand">Mango</span>
+                </div>
+                <div class="seller-info">
+                  <div class="seller-avatar">A</div>
+                  <span class="seller-name">Anna Chen</span>
+                  <span class="seller-rating">⭐ 4.7</span>
+                </div>
+                <div class="product-actions">
+                  <button class="btn-exchange">Exchange</button>
+                  <button class="btn-view">View</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Card 4 -->
+            <div class="product-card">
+              <div class="product-image">
+                👗
+                <div class="product-badge">Sale</div>
+                <button class="wishlist-btn">♡</button>
+              </div>
+              <div class="product-info">
+                <h3 class="product-title">Vintage Floral Midi Dress</h3>
+                <p class="product-description">
+                  Retro-inspired midi dress with delicate floral pattern.
+                  Features button-down front and belt.
+                </p>
+                <div class="product-meta">
+                  <span class="product-points">45 Points</span>
+                  <span class="product-condition">Excellent</span>
+                </div>
+                <div class="product-details">
+                  <span class="product-size">Size: M</span>
+                  <span class="product-brand">Forever 21</span>
+                </div>
+                <div class="seller-info">
+                  <div class="seller-avatar">L</div>
+                  <span class="seller-name">Lisa Wilson</span>
+                  <span class="seller-rating">⭐ 4.9</span>
+                </div>
+                <div class="product-actions">
+                  <button class="btn-exchange">Exchange</button>
+                  <button class="btn-view">View</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Card 5 -->
+            <div class="product-card">
+              <div class="product-image">
+                👗
+                <button class="wishlist-btn">♡</button>
+              </div>
+              <div class="product-info">
+                <h3 class="product-title">Striped Shirt Dress</h3>
+                <p class="product-description">
+                  Classic navy and white striped shirt dress with collar and
+                  pocket details. Versatile day-to-night piece.
+                </p>
+                <div class="product-meta">
+                  <span class="product-points">40 Points</span>
+                  <span class="product-condition">Good</span>
+                </div>
+                <div class="product-details">
+                  <span class="product-size">Size: S</span>
+                  <span class="product-brand">Zara</span>
+                </div>
+                <div class="seller-info">
+                  <div class="seller-avatar">K</div>
+                  <span class="seller-name">Kate Brown</span>
+                  <span class="seller-rating">⭐ 4.6</span>
+                </div>
+                <div class="product-actions">
+                  <button class="btn-exchange">Exchange</button>
+                  <button class="btn-view">View</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Card 6 -->
+            <div class="product-card">
+              <div class="product-image">
+                👗
+                <div class="product-badge new">New</div>
+                <button class="wishlist-btn">♡</button>
+              </div>
+              <div class="product-info">
+                <h3 class="product-title">Bohemian Wrap Dress</h3>
+                <p class="product-description">
+                  Flowing wrap dress with ethnic print and bell sleeves. Perfect
+                  for festival season and bohemian style.
+                </p>
+                <div class="product-meta">
+                  <span class="product-points">55 Points</span>
+                  <span class="product-condition">Excellent</span>
+                </div>
+                <div class="product-details">
+                  <span class="product-size">Size: M</span>
+                  <span class="product-brand">Free People</span>
+                </div>
+                <div class="seller-info">
+                  <div class="seller-avatar">J</div>
+                  <span class="seller-name">Jessica Davis</span>
+                  <span class="seller-rating">⭐ 4.8</span>
+                </div>
+                <div class="product-actions">
+                  <button class="btn-exchange">Exchange</button>
+                  <button class="btn-view">View</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Card 7 -->
+            <div class="product-card">
+              <div class="product-image">
+                👗
+                <button class="wishlist-btn">♡</button>
+              </div>
+              <div class="product-info"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
